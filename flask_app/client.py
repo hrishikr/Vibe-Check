@@ -1,5 +1,6 @@
-import os
 import requests
+
+import os
 from base64 import b64encode
 from datetime import datetime
 from datetime import timedelta
@@ -105,6 +106,9 @@ class SpotifyClient():
         return {
             "Authorization": f"Basic {client_creds_b64}"
         }
+    
+    def get_track(self, lookup_id):
+        return self.get_resource(lookup_id=lookup_id, resource_type="tracks")
     
     def perform_auth(self):
         """
