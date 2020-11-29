@@ -1,5 +1,6 @@
 attrs==20.2.0
 bcrypt==3.2.0
+beautifulsoup4
 certifi==2020.6.20
 cffi==1.14.3
 chardet==3.0.4
@@ -26,9 +27,9 @@ pyparsing==2.4.7
 pytest==6.1.2
 python-dotenv==0.15.0
 requests==2.24.0
+requests_oauthlib
 six==1.15.0
 toml==0.10.1
 urllib3==1.25.11
 Werkzeug==1.0.1
 WTForms==2.3.3
-bs4
