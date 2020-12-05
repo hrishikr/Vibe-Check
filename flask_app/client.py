@@ -4,7 +4,36 @@ import os
 from base64 import b64encode
 from datetime import datetime
 from datetime import timedelta
+import pprint
 from urllib.parse import urlencode
+
+class Track(object):
+    def __init__(self, track_json):
+        self.id = track_json['id']
+        self.name = track_json['name']
+        self.artist = track_json['album']['artists'][0]['name']
+        self.image = track_json['album']['images'][0]['url']
+        self.album_name = track_json['album']['name']
+        self.type = "track"
+
+class Artist(object):
+    def __init__(self, artist_json):
+        self.id = artist_json['id']
+        self.name = artist_json['name']
+        self.image = artist_json['images'][0]['url']
+        self.popularity = artist_json['popularity']
+        self.genres = artist_json['genres']
+        self.followers = artist_json['followers']['total']
+        self.type = "artist"
+
+class Album(object):
+    def __init__(self, album_json):
+        self.id = album_json['id']
+        self.name = album_json['name']
+        self.artist = album_json['artists'][0]['name']
+        self.images = album_json['images'][0]['url']
+        self.num_tracks = album_json['total_tracks']
+        self.type = "album"
 
 class SpotifyClient():
     access_token = None
@@ -15,6 +44,7 @@ class SpotifyClient():
     token_url = "https://accounts.spotify.com/api/token"
 
     def __init__(self, client_id, client_secret):
+        self.sess = requests.Session()
         self.client_id = client_id
         self.client_secret = client_secret
 
@@ -66,7 +96,7 @@ class SpotifyClient():
         result = {}
         endpoint = f"https://api.spotify.com/{version}/{resource_type}/{lookup_id}"
         headers = self.get_resource_headers()
-        request = requests.get(endpoint, headers=headers)
+        request = self.sess.get(endpoint, headers=headers)
 
         if request.status_code in range(200, 299):
             result = request.json()
@@ -117,14 +147,14 @@ class SpotifyClient():
         Args: None
         Return: None
         """
-        request = requests.post(
+        request = self.sess.post(
             url=self.token_url,
             data=self.get_token_data(),
             headers=self.get_token_headers()
         )
 
         # If not a valid status code
-        if request.status_code  not in range(200, 299):
+        if request.status_code not in range(200, 299):
             raise ValueError("Authentication Failed")
         
         response = request.json()
@@ -149,7 +179,7 @@ class SpotifyClient():
         endpoint = "https://api.spotify.com/v1/search"
         response = urlencode({"q": query, "type": search_type.lower()})
         lookup_url = f"{endpoint}?{response}"
-        request = requests.get(lookup_url, headers=headers)
+        request = self.sess.get(lookup_url, headers=headers)
 
         if request.status_code in range(200, 299):
             result = request.json()
@@ -160,6 +190,23 @@ if __name__ == '__main__':
     client_id = os.environ.get("SPOTIFY_CLIENT_ID")
     client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
     client = SpotifyClient(client_id, client_secret)
+    pp = pprint.PrettyPrinter(width=41, compact=True)
 
-    print(client.search(query="Stitches", search_type="Track"))
-    print(client.get_album("41zMFsCjcGenYKVJYUXU2n"))
+    album_json = client.search(query="shape", search_type="Album")
+
+    # for i in range(len(track_json['tracks']['items'])):
+    #     print(track_json['tracks']['items'][i].keys())
+    # pp.pprint(track_json)
+    # pp.pprint(client.get_album("41zMFsCjcGenYKVJYUXU2n"))
+    # track = Track(track_json['tracks']['items'][0])
+    # pp.pprint(client.get_track(track.id))
+
+    # pp.pprint(artist_json)
+    # artist = Artist(artist_json['artists']['items'][0])
+    # pp.pprint(client.get_artist(artist.id))
+
+    # pp.pprint(album_json['albums']['items'][0])
+    album = Album(album_json['albums']['items'][0])
+    print(album.artist)
+    # Might get a UnicodeEncodeError if you query the album "smoke" and call get_album. Something we need to look out for.
+    print(client.get_album(album.id))
