@@ -1,0 +1,38 @@
+{% extends "header.html" %}
+{% block content %}
+
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+<div class="container">
+    <form action="/" class="form-inline my-2 my-lg-0" method="POST">
+        {{ form.csrf_token }}
+        {{ form.search_query(class="form-control", placeholder="Search") }}
+        {{ form.input_type(class="form-control", placeholder="Type") }}
+
+        {% if form.search_query.errors %}
+        <div class="alert alert-warning" role="alert">
+            {% for error in form.search_query.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if form.input_type.errors %}
+        <div class="alert alert-warning" role="alert">
+            {% for error in form.input_type.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {{ form.submit(class="btn btn-outline-success") }}
+    </form>
+</div>
+
+<div class="container">
+    <h2>Please use the search bar above to search for tracks, albums, and movies! Then you can review them. JUST KIDDING!</h2>
+</div>
+
+{% endblock %}

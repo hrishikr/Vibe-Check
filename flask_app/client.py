@@ -20,7 +20,10 @@ class Artist(object):
     def __init__(self, artist_json):
         self.id = artist_json['id']
         self.name = artist_json['name']
-        self.image = artist_json['images'][0]['url']
+        if len(artist_json['images']) != 0:
+            self.image = artist_json['images'][0]['url']
+        else:
+            self.image = None
         self.popularity = artist_json['popularity']
         self.genres = artist_json['genres']
         self.followers = artist_json['followers']['total']
@@ -113,6 +116,28 @@ class SpotifyClient():
         return {
             "Authorization": f"Bearer {self.get_access_token()}"
         }
+    
+    def get_search_results(self, query, search_type):
+        results = self.search(query, search_type)
+        items = []
+
+        if search_type == "Track":
+            results = results['tracks']
+            for item in results['items']:
+                items.append(item)
+            items = list(map(lambda x: Track(x), items))
+        elif search_type == "Artist":
+            results = results['artists']
+            for item in results['items']:
+                items.append(item)
+            items = list(map(lambda x: Artist(x), items))
+        elif search_type == "Album":
+            results = results['albums']
+            for item in results['items']:
+                items.append(item)
+            items = list(map(lambda x: Album(x), items))
+        
+        return items
 
     def get_token_data(self):
         """
@@ -192,7 +217,8 @@ if __name__ == '__main__':
     client = SpotifyClient(client_id, client_secret)
     pp = pprint.PrettyPrinter(width=41, compact=True)
 
-    album_json = client.search(query="shape", search_type="Album")
+    album_json = client.search(query="shawn", search_type="Artist")
+    pp.pprint(album_json['artists']['items'][0])
 
     # for i in range(len(track_json['tracks']['items'])):
     #     print(track_json['tracks']['items'][i].keys())
@@ -206,7 +232,7 @@ if __name__ == '__main__':
     # pp.pprint(client.get_artist(artist.id))
 
     # pp.pprint(album_json['albums']['items'][0])
-    album = Album(album_json['albums']['items'][0])
-    print(album.artist)
+    album = Artist(album_json['artists']['items'][0])
+    # print(album.artist)
     # Might get a UnicodeEncodeError if you query the album "smoke" and call get_album. Something we need to look out for.
-    print(client.get_album(album.id))
+    print(client.get_search_results(query="Shawn", search_type="Artist"))
