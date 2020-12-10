@@ -13,7 +13,7 @@ from wtforms.validators import (
     ValidationError,
 )
 
-#from flask_app.models import User  # we still need to define models.py
+from flask_app.models import User  # we still need to define models.py
 
 class SearchForm(FlaskForm):
     search_query = StringField('Search', validators=[InputRequired(), Length(min=1, max=30)])
@@ -54,5 +54,8 @@ class UpdateUsernameForm(FlaskForm):
             user = User.objects(username = username.data).first()
             if user is not None:
                 raise ValidationError("This username is already taken")
+
+#class UpdatePasswordForm(self, password):  # Not sure if this needs to be added 
+
 
 

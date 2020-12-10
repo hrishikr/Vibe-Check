@@ -8,8 +8,25 @@ import os
 from datetime import datetime
 
 # local
-from flask_app.forms import SearchForm
+from flask_app.forms import SearchForm, LoginForm, RegistrationForm
 from flask_app.client import SpotifyClient
+
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_user,
+    logout_user,
+    login_required,
+)
+
+from flask_bcrypt import Bcrypt
+from werkzeug.utils import secure_filename
+
+from .models import User
+
+from . import bcrypt
+
+
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/my_database"
@@ -25,6 +42,9 @@ app.config.update(
 )
 
 mongo = PyMongo(app)
+
+
+""" ************ View functions ************ """
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -46,3 +66,22 @@ def query_results(query, input_type):
         return render_template('query_results.html', results=results, input_type=input_type)
     except ValueError as err:
         return render_template('query_results.html', error_msg=err)
+
+
+""" ************ User Management views ************ """
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for("main.index"))
+
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+        user = User(username=form.username.data, email=form.email.data, password=hashed)
+        user.save()
+
+        return redirect(url_for("main.login"))
+
+    return render_template("register.html", title="Register", form=form)
