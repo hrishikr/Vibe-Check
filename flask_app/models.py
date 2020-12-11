@@ -19,3 +19,10 @@ class User(db.Document, UserMixin):
     # Returns unique string identifying our object
     def get_id(self):
         return self.username
+
+class Review(db.Document):
+    commenter = db.ReferenceField(User, required=True)
+    content = db.StringField(required=True, min_length=5, max_length=500)
+    date = db.StringField(required=True)
+    track_id = db.StringField(required=True, min_length=9, max_length=9)
+    song_title = db.StringField(required=True, min_length=1, max_length=100)

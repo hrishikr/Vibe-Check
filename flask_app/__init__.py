@@ -9,6 +9,7 @@ from flask_login import (
 )
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
+from .client import SpotifyClient
 # from users import users
 # from movies import movies 
 # stdlib
@@ -20,5 +21,8 @@ import os
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
+client_id = os.environ.get("SPOTIFY_CLIENT_ID")
+client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
+client = SpotifyClient(client_id, client_secret)
 
 # Blueprints

@@ -12,7 +12,7 @@
         <img src="{{ result.image }}" class="mr-3" alt="missing">
         <div class="media-body">
             <h5 class="mt-0">
-                {{ result.name }}, {{ result.artist }} ({{ result.album }})
+                <a href="{{ url_for('songs.song_detail', id=result.id) }}">{{ result.name }}</a> - {{ result.artist }}
             </h5>
         </div>
     </div>
