@@ -8,25 +8,22 @@ from ..utils import current_time
 
 songs = Blueprint("songs", __name__)
 
-@songs.route("/", methods=["GET", "POST"])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("songs.query_results", query=form.search_query.data))
+        return redirect(url_for('query_results', query=form.search_query.data, input_type=form.input_type.data))
 
-    return render_template("index.html", form=form)
+    return render_template('index.html', form=form)
 
-
-@songs.route("/search-results/<query>", methods=["GET"])
-def query_results(query):
+@app.route('/search-results/<query>?<input_type>', methods=['GET'])
+def query_results(query, input_type):
     try:
-        results = client.search(query)
-    except ValueError as e:
-        flash(str(e))
-        return redirect(url_for("songs.index"))
-
-    return render_template("query.html", results=results)
+        results = client.get_search_results(query=query, search_type=input_type)
+        return render_template('query_results.html', results=results, input_type=input_type)
+    except ValueError as err:
+        return render_template('query_results.html', error_msg=err)
 
 
 @songs.route("/songs/<id>", methods=["GET", "POST"])

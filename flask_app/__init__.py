@@ -1,3 +1,4 @@
+# 3rd-party packages
 from flask import Flask, render_template, request, redirect, url_for
 from flask_mongoengine import MongoEngine
 from flask_login import (
@@ -9,20 +10,44 @@ from flask_login import (
 )
 from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
-from .client import SpotifyClient
-# from users import users
-# from movies import movies 
+
 # stdlib
 from datetime import datetime
 import os
+
+# local
+from .client import SpotifyClient
 
 
 
 db = MongoEngine()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-client_id = os.environ.get("SPOTIFY_CLIENT_ID")
-client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
-client = SpotifyClient(client_id, client_secret)
+client = SpotifyClient(os.environ.get("SPOTIFY_CLIENT_ID"), os.environ.get("SPOTIFY_CLIENT_SECRET"))
 
 # Blueprints
+from .songs.routes import songs
+from .users.routes import users
+
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+def create_app(test_config=None):
+    app = Flask(__name__)
+
+    app.config.from_pyfile("config.py", silent=False)
+    if test_config is not None:
+        app.config.update(test_config)
+
+    db.init_app(app)
+    login_manager.init_app(app)
+    bcrypt.init_app(app)
+
+    # app.register_blueprint(main)
+    app.register_blueprint(users)
+    app.register_blueprint(songs)
+    app.register_error_handler(404, page_not_found)
+
+    login_manager.login_view = "users.login"
+
+    return app
