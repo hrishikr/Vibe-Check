@@ -2,7 +2,7 @@
 {% block search_bar %}
 
 {% if error_msg %}
-<p>{{ error_msg }}</p>
+    <p>{{ error_msg }}</p>
 {% endif %}
 
 <div class="container">
@@ -15,40 +15,27 @@
             {% if form.search_query.errors %}
             <div class="alert alert-warning" role="alert">
                 {% for error in form.search_query.errors %}
-                <span>{{ error }}</span>
+                    <span>{{ error }}</span>
                 {% endfor %}
             </div>
             {% endif %}
-
+    
             {% if form.input_type.errors %}
             <div class="alert alert-warning" role="alert">
                 {% for error in form.input_type.errors %}
-                <span>{{ error }}</span>
+                    <span>{{ error }}</span>
                 {% endfor %}
             </div>
             {% endif %}
-
+    
             {{ form.submit(class="invisible btn btn-outline-success") }}
         </span>
     </form>
 </div>
 {% endblock %}
 {% block content %}
-
 <div class="container">
-    <br>
-    <br>
-    <br>
-    <br>
-    <center>
-        <h1>Hi. Welcome to <strong>Vibe Check</strong>.</h1>
-        <br>
-        <h3>The review platform centered around <strong>Music</strong>.<br>
-            Add scraped shit here.</h3>
-    </center>
+    <h2>Please use the search bar above to search for tracks, albums, and movies! Then you can review them. JUST KIDDING!</h2>
 </div>
-</div>
-
-
 
 {% endblock %}

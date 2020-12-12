@@ -15,3 +15,9 @@ img {
 .review-item {
     border-bottom: 1px dashed #a5a5a5;
 }
+
+form {
+    margin-left: 15%;
+    margin-right:15%;
+    width: 70%;
+}
