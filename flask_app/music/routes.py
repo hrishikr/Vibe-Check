@@ -5,16 +5,17 @@ from .. import client
 from ..forms import MusicReviewForm, SearchForm
 from ..models import User, Review
 from ..utils import current_time
-from ..client import Track
+from ..billboard_scraper import scrape_billboard_hot_20
 
 music = Blueprint("music", __name__)
 
 @music.route('/', methods=['GET', 'POST'])
 def index():
     form = SearchForm()
+    songs, artists, images = scrape_billboard_hot_20()
 
     if form.validate_on_submit():
-        return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data))
+        return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data, songs=songs, artists=artists, images=images))
 
     return render_template('index.html', form=form)
 
