@@ -26,7 +26,7 @@ bcrypt = Bcrypt()
 client = SpotifyClient(os.environ.get("SPOTIFY_CLIENT_ID"), os.environ.get("SPOTIFY_CLIENT_SECRET"))
 
 # Blueprints
-from .songs.routes import songs
+from .music.routes import music
 from .users.routes import users
 
 def page_not_found(e):
@@ -45,7 +45,7 @@ def create_app(test_config=None):
 
     # app.register_blueprint(main)
     app.register_blueprint(users)
-    app.register_blueprint(songs)
+    app.register_blueprint(music)
     app.register_error_handler(404, page_not_found)
 
     login_manager.login_view = "users.login"

@@ -58,7 +58,7 @@ class UpdateUsernameForm(FlaskForm):
 #class UpdatePasswordForm(self, password):  # Not sure if this needs to be added 
 
 
-class SongReviewForm(FlaskForm):
+class MusicReviewForm(FlaskForm):
     text = TextAreaField(
         "Comment", validators=[InputRequired(), Length(min=5, max=500)]
     )
