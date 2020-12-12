@@ -11,10 +11,10 @@
     <div class="row media mt-3">
         {% for res in result %}
         <div class="col-sm">
-            <img src="{{ res.image }}" class="rounded-circle mx-auto d-block" alt="missing">
+            <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
             <div class="media-body">
                 <h6 class="mt-3 text-center">
-                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a> {{ res.artist }}
+                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a> ({{ res.artist }})
                 </h6>
             </div>
         </div>
@@ -23,26 +23,34 @@
     {% endfor %}
 
     {% elif input_type|string() == "Artist" %}
-    {% for result in results %}
-    <div class="media">
-        <img src="{{ result.image }}" class="mr-3" alt="missing">
-        <div class="media-body">
-            <h5 class="mt-0">
-                <a href="{{ url_for('music.music_detail', music_id=result.id, input_type=input_type) }}">{{ result.name }}</a>, {{result.followers}}
-            </h5>
+    {% for result in results | batch(4) %}
+    <div class="row media mt-3">
+        {% for res in result %}
+        <div class="col-sm">
+            <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
+            <div class="media-body">
+                <h5 class="mt-3 text-center">
+                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a>
+                </h5>
+            </div>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
 
     {% elif input_type|string() == "Album" %}
-    {% for result in results %}
-    <div class="media">
-        <img src="{{ result.image }}" class="mr-3" alt="missing">
-        <div class="media-body">
-            <h5 class="mt-0">
-                <a href="{{ url_for('music.music_detail', music_id=result.id, input_type=input_type) }}">{{ result.name }}</a>, {{ result.artist }} ({{ result.num_tracks }})
-            </h5>
+    {% for result in results | batch(4) %}
+    <div class="row media mt-3">
+        {% for res in result %}
+        <div class="col-sm">
+            <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
+            <div class="media-body">
+                <h5 class="mt-3 text-center">
+                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a> ({{ res.artist }})
+                </h5>
+            </div>
         </div>
+        {% endfor %}
     </div>
     {% endfor %}
     {% endif %}
