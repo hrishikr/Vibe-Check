@@ -38,16 +38,42 @@
 <div class="container">
     <br>
     <br>
-    <br>
-    <br>
     <center>
         <h1>Hi. Welcome to <strong>Vibe Check</strong>.</h1>
-        <br>
-        <h3>The review platform centered around <strong>Music</strong>.<br>
-            Add scraped shit here.</h3>
+        <h6>The review platform centered around <strong>Music</strong>.</h6>
     </center>
 </div>
+<div class="container">
+    <center>
+        <table>
+            <tr> 
+                <th>Position</th>
+                <th>Song</th>
+                <th>Artist</th>
+            </tr>
+            <br>
+            <h4>Here are this week's <strong>Hottest Songs</strong>!</h4>
+            <br>
+            {% for key, values in data.items() %}
+            <tr>
+                <td><center>{{ key }}</center></td>
+                {% for i in values %}
+                {% if loop.index < 3 %}
+                <td><center>{{ i }}</center></td>
+                {% else %} 
+                <td><img src={{ i }} /></td>
+                {% endif %}</li>
+
+                    
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            
+        </table>
+    </center>
 </div>
+
+
 
 
 

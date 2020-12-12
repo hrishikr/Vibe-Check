@@ -12,12 +12,12 @@ music = Blueprint("music", __name__)
 @music.route('/', methods=['GET', 'POST'])
 def index():
     form = SearchForm()
-    songs, artists, images = scrape_billboard_hot_20()
+    data = scrape_billboard_hot_20()
 
     if form.validate_on_submit():
-        return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data, songs=songs, artists=artists, images=images))
+        return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data))
 
-    return render_template('index.html', form=form)
+    return render_template('index.html', form=form, data=data)
 
 @music.route('/search-results/<query>?<input_type>', methods=['GET'])
 def query_results(query, input_type):
