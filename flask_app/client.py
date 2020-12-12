@@ -14,7 +14,7 @@ class Track(object):
         self.artist = track_json['album']['artists'][0]['name']
         self.image = track_json['album']['images'][0]['url']
         self.album_name = track_json['album']['name']
-        self.type = "track"
+        self.type = "Track"
 
 class Artist(object):
     def __init__(self, artist_json):
@@ -27,16 +27,16 @@ class Artist(object):
         self.popularity = artist_json['popularity']
         self.genres = artist_json['genres']
         self.followers = artist_json['followers']['total']
-        self.type = "artist"
+        self.type = "Artist"
 
 class Album(object):
     def __init__(self, album_json):
-        self.id = album_json['id']
+        self.id = f"{album_json['id']}"
         self.name = album_json['name']
         self.artist = album_json['artists'][0]['name']
-        self.images = album_json['images'][0]['url']
+        self.image = album_json['images'][0]['url']
         self.num_tracks = album_json['total_tracks']
-        self.type = "album"
+        self.type = "Album"
 
 class SpotifyClient():
     access_token = None
@@ -73,6 +73,21 @@ class SpotifyClient():
 
     def get_artist(self, lookup_id):
         return self.get_resource(lookup_id=lookup_id, resource_type="artists")
+
+    def get_track(self, lookup_id):
+        return self.get_resource(lookup_id=lookup_id, resource_type="tracks")
+
+    def get_result(self, lookup_id, input_type):
+        result = None
+
+        if input_type == "Track":
+            result = Track(self.get_track(lookup_id))
+        elif input_type == "Artist":
+            result = Artist(self.get_artist(lookup_id))
+        elif input_type == "Album":
+            result = Album(self.get_album(lookup_id))
+        
+        return result
 
     def get_client_credentials(self):
         """
@@ -162,9 +177,6 @@ class SpotifyClient():
             "Authorization": f"Basic {client_creds_b64}"
         }
     
-    def get_track(self, lookup_id):
-        return self.get_resource(lookup_id=lookup_id, resource_type="tracks")
-    
     def perform_auth(self):
         """
         This method is used to authorize or authenticate a client. Anytime a call is made to the API, a POST request is made sharing the token data and token headers. The access token and the expiration time for a particular access token are updated in this method and referenced in other methods. (FYI I have a vague understanding of this method so I may be wrong) - Barjun.
@@ -217,8 +229,8 @@ if __name__ == '__main__':
     client = SpotifyClient(client_id, client_secret)
     pp = pprint.PrettyPrinter(width=41, compact=True)
 
-    album_json = client.search(query="shawn", search_type="Artist")
-    pp.pprint(album_json['artists']['items'][0])
+    album_json = client.search(query="stitches", search_type="Track")
+    # pp.pprint(album_json['tracks']['items'][0])
 
     # for i in range(len(track_json['tracks']['items'])):
     #     print(track_json['tracks']['items'][i].keys())
@@ -232,7 +244,8 @@ if __name__ == '__main__':
     # pp.pprint(client.get_artist(artist.id))
 
     # pp.pprint(album_json['albums']['items'][0])
-    album = Artist(album_json['artists']['items'][0])
+    album = Track(album_json['tracks']['items'][0])
+    print(client.get_track(album.id))
     # print(album.artist)
     # Might get a UnicodeEncodeError if you query the album "smoke" and call get_album. Something we need to look out for.
-    print(client.get_search_results(query="Shawn", search_type="Artist"))
+    # print(client.get_search_results(query="Shawn", search_type="Artist"))

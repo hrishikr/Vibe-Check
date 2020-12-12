@@ -12,7 +12,7 @@
         <img src="{{ result.image }}" class="mr-3" alt="missing">
         <div class="media-body">
             <h5 class="mt-0">
-                <a href="{{ url_for('music.music_detail', music_id=result.id) }}">{{ result.name }}</a> - {{ result.artist }}
+                <a href="{{ url_for('music.music_detail', music_id=result.id, input_type=input_type) }}">{{ result.name }}</a> - {{ result.artist }}
             </h5>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <img src="{{ result.image }}" class="mr-3" alt="missing">
         <div class="media-body">
             <h5 class="mt-0">
-                <a href="{{ url_for('music.music_detail', music_id=result.id) }}">{{ result.name }}</a>, {{result.followers}}
+                <a href="{{ url_for('music.music_detail', music_id=result.id, input_type=input_type) }}">{{ result.name }}</a>, {{result.followers}}
             </h5>
         </div>
     </div>
@@ -38,7 +38,7 @@
         <img src="{{ result.image }}" class="mr-3" alt="missing">
         <div class="media-body">
             <h5 class="mt-0">
-                <a href="{{ url_for('music.music_detail', music_id=result.id) }}">{{ result.name }}</a>, {{ result.artist }} ({{ result.num_tracks }})
+                <a href="{{ url_for('music.music_detail', music_id=result.id, input_type=input_type) }}">{{ result.name }}</a>, {{ result.artist }} ({{ result.num_tracks }})
             </h5>
         </div>
     </div>

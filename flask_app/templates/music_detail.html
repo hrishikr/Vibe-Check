@@ -5,25 +5,66 @@
 <b>{{ error_msg }}</b>
 {% endif %}
 
-{% if movie %}
+{% if info %}
 
-{# Display card for the song details #}
+{# Display card for the movie details #}
+
+{% if info.type|string() == "Track" %}
 <div class="row">
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ song.name }} 
+        {{ info.name }}
       </div>
       <div class="card-body">
-        <img src="{{ song.image }}" class="mr-3 movie" alt="alt text">
+        <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><b>Artist(s):</b> {{ song.artist }}</li>
-          <li class="list-group-item"><b>Album:</b> {{ song.album_name }}</li>
+          <li class="list-group-item"><b>Album:</b> {{ info.album_name }}</li>
+          <li class="list-group-item"><b>Artist:</b> {{ info.artist }}</li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
+
+{% if info.type|string() == "Artist" %}
+<div class="row">
+  <div class="col">
+    <div class="card text-center">
+      <div class="card-header">
+        {{ info.name }}
+      </div>
+      <div class="card-body">
+        <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>Genres:</b> {{ ", ".join(info.genres) }}</li>
+          <li class="list-group-item"><b>Followers:</b> {{ info.followers }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if info.type|string() == "Album" %}
+<div class="row">
+  <div class="col">
+    <div class="card text-center">
+      <div class="card-header">
+        {{ info.name }}
+      </div>
+      <div class="card-body">
+        <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>Artist:</b> {{ info.artist }}</li>
+          <li class="list-group-item"><b>Number of Tracks:</b> {{ info.num_tracks }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 {# Reviews #}
 <div class="row">
@@ -50,7 +91,7 @@
 </div>
 
 {% if current_user.is_authenticated %}
-{# Song review submission form #}
+{# Movie review submission form #}
 <div class="row">
   <div class="col">
     <form method="POST" action="">

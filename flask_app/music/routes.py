@@ -5,6 +5,7 @@ from .. import client
 from ..forms import MusicReviewForm, SearchForm
 from ..models import User, Review
 from ..utils import current_time
+from ..client import Track
 
 music = Blueprint("music", __name__)
 
@@ -26,10 +27,10 @@ def query_results(query, input_type):
         return render_template('query_results.html', error_msg=err)
 
 
-@music.route("/music/<music_id>", methods=["GET", "POST"])
-def music_detail(music_id):
+@music.route("/music/<music_id>?<input_type>", methods=["GET", "POST"])
+def music_detail(music_id, input_type):
     try:
-        result = client.get_track(id)
+        result = client.get_result(music_id, input_type)
     except ValueError as e:
         flash(str(e))
         return redirect(url_for("users.login"))
@@ -41,16 +42,16 @@ def music_detail(music_id):
             content=form.text.data,
             date=current_time(),
             track_id=music_id,
-            song_title=result.title,
+            song_title=result.name,
         )
         review.save()
 
         return redirect(request.path)
 
-    reviews = Review.objects(track_id=id)
+    reviews = Review.objects(track_id=music_id)
 
     return render_template(
-        "song_detail.html", form=form, song=result, reviews=reviews
+        "music_detail.html", form=form, info=result, reviews=reviews
     )
 
 
