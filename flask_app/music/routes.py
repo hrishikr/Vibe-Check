@@ -31,7 +31,7 @@ def index():
 
     return render_template('index.html', form=form, data=data, songs=songs)
 
-@music.route('/search-results/<query>?<input_type>', methods=['GET'])
+@music.route('/search-results/<query>&<input_type>', methods=['GET'])
 def query_results(query, input_type):
     try:
         results = client.get_search_results(query=query, search_type=input_type)
@@ -40,7 +40,7 @@ def query_results(query, input_type):
         return render_template('query_results.html', error_msg=err, form = SearchForm())
 
 
-@music.route("/music/<music_id>?<input_type>", methods=["GET", "POST"])
+@music.route("/music/<music_id>&<input_type>", methods=["GET", "POST"])
 def music_detail(music_id, input_type):
     try:
         result = client.get_result(music_id, input_type)
@@ -54,17 +54,19 @@ def music_detail(music_id, input_type):
             commenter=current_user._get_current_object(),
             content=form.text.data,
             date=current_time(),
-            track_id=music_id,
+            music_id=music_id,
+            input_type=input_type,
             song_title=result.name,
         )
         review.save()
+        
 
         return redirect(request.path)
 
-    reviews = Review.objects(track_id=music_id)
+    reviews = Review.objects(music_id=music_id)
 
     return render_template(
-        "music_detail.html", form=form, info=result, reviews=reviews
+        "music_detail.html", form=form, info=result, reviews=reviews, input_type=input_type, music_id=music_id
     )
 
 

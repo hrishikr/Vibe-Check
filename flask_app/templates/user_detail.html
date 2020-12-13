@@ -18,9 +18,9 @@
                     <span class="float-right">
                         <small>{{ review.date }}</small>
                     </span>
-                    <strong>For: <a href="{{ url_for('music.music_detail', music_id=review.track_id) }}">
+                    <strong>For: <a href="{{ url_for('music.music_detail', music_id=review.music_id, input_type=review.input_type) }}">
                             {{ review.song_title }}
-                        </a>
+                        </a>, {{ review.input_type }}
                     </strong>
                     <p>
                         {{ review.content }}

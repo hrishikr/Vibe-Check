@@ -2,6 +2,7 @@
 {% block content %}
 
 {% if error_msg %}
+{% print("ewufhiwuef") %}
 <b>{{ error_msg }}</b>
 {% endif %}
 
@@ -72,8 +73,8 @@
     <h2> Reviews <small class="float-right">{{ reviews|length }} reviews</small></h2>
     <ul class="media-list">
       {% for review in reviews %}
-      <li class="media review-item">
-        <div class="media-body">
+      <li class="review-item">
+        <div>
           <span class="float-right">
             <small>{{ review.date }}</small>
           </span>
@@ -109,7 +110,7 @@
         {% endif %}
 
       </div>
-      {{ form.submit() }}
+      {{ form.submit(class="form-control form-control-lg") }}
     </form>
   </div>
 </div>

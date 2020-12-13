@@ -7,6 +7,7 @@ import base64
 import pyotp
 
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.objects(username=user_id).first()
@@ -26,5 +27,6 @@ class Review(db.Document):
     commenter = db.ReferenceField(User, required=True)
     content = db.StringField(required=True, min_length=5, max_length=500)
     date = db.StringField(required=True)
-    track_id = db.StringField(required=True, min_length=9, max_length=9)
+    music_id = db.StringField(required=True)
+    input_type = db.StringField(required=True)
     song_title = db.StringField(required=True, min_length=1, max_length=100)
