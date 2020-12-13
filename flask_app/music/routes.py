@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import current_user
 
 from .. import client
+from ..cache import cache
 from ..forms import MusicReviewForm, SearchForm
 from ..models import User, Review
 from ..utils import current_time
@@ -16,7 +17,14 @@ def index():
     songs = []
 
     for i in data:
-        songs.append(client.get_search_results(query=data[i][0], search_type="Track")[0])
+        query = data[i][0]
+        
+        if query not in cache['tracks']:
+            results = client.get_search_results(query=data[i][0], search_type="Track")
+            cache['tracks'][query] = results
+            songs.append(results[0])
+        else:
+            songs.append(cache['tracks'][query][0])
 
     if form.validate_on_submit():
         return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data))
