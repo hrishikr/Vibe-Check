@@ -35,6 +35,35 @@
 {% endblock %}
 {% block content %}
 
+<style>
+    #hor-minimalist-b {
+        font-size: 16px;
+        background: #fff;
+        width: 90%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    #hor-minimalist-b th {
+        font-size: 24px;
+        font-weight: normal;
+        color: rgb(2, 4, 112);
+        padding: 10px 8px;
+        border-bottom: 2px solid #6678b1;
+    }
+
+    #hor-minimalist-b td {
+        border-bottom: 1px solid #ccc;
+        color: rgb(110, 110, 110);
+        padding: 6px 8px;
+    }
+
+    #hor-minimalist-b tbody tr:hover a
+    {
+        color: #009;
+    }
+</style>
+
 <div class="container">
     <br>
     <br>
@@ -45,38 +74,52 @@
 </div>
 <div class="container-fluid maxWidth">
     <center>
-        <table>
-            <tr> 
-                <th><center>Position</center></th>
-                <th><center>Song</center></th>
-                <th><center>Artist</center></th>
-            </tr>
+        <table id="hor-minimalist-b">
+            <thead>
+                <tr>
+                    <th>
+                        <center>Pos</center>
+                    </th>
+                    <th>
+                        <center>Song</center>
+                    </th>
+                    <th>
+                        <center>Artist</center>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
             <br>
             <h4>Here are this week's <strong>Hottest Songs</strong>!</h4>
             <br>
-            {% for key, values in data.items() %}
-            <tr>
-                <td><center>{{ key }}</center></td>
-                {% for i in values %}
-                {% if loop.index == 1 %}
-                <td><a href="{{ url_for('music.music_detail', music_id=songs[key - 1].id, input_type=songs[key - 1].type) }}"><center>{{ i }}</center></a></td>
-                {% elif loop.index < 3 %}
-                <td><center>{{ i }}</center></td>
-                {% else %} 
-                <td><img src="{{ i }}" /></td>
-                {% endif %}
+            <tbody>
+                {% for key, values in data.items() %}
+                <tr>
+                    <td>
+                        <center>{{ key }}</center>
+                    </td>
+                    {% for i in values %}
+                    {% if loop.index == 1 %}
+                    <td><a
+                            href="{{ url_for('music.music_detail', music_id=songs[key - 1].id, input_type=songs[key - 1].type) }}">
+                            <center>{{ i }}</center>
+                        </a></td>
+                    {% elif loop.index < 3 %}
+                    <td>
+                        <center>{{ i }}</center>
+                    </td>
+                    {% else %}
+                    <td><img src="{{ i }}" /></td>
+                    {% endif %}
 
-                    
+
+                    {% endfor %}
+                </tr>
                 {% endfor %}
-            </tr>
-            {% endfor %}
-            
+            </tbody>
+
         </table>
     </center>
 </div>
-
-
-
-
 
 {% endblock %}

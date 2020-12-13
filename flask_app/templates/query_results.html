@@ -1,22 +1,53 @@
 {% extends "header.html" %}
-{% block content %}
+
 
 {% if error_msg %}
     <p>{{ error_msg }}</p>
 {% endif %}
+{% block search_bar %}
 
-<h1>Your search results for <strong>{{ query }}</strong></h1>
+<div class="container">
+    <form action="/" class="form-inline mx-2 my-2 my-lg-0" method="POST">
+        {{ form.csrf_token }}
+        <span>
+            {{ form.search_query(class="form-control", placeholder="Search") }}
+            {{ form.input_type(class="form-control", placeholder="Type") }}
+
+            {% if form.search_query.errors %}
+            <div class="alert alert-warning" role="alert">
+                {% for error in form.search_query.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if form.input_type.errors %}
+            <div class="alert alert-warning" role="alert">
+                {% for error in form.input_type.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {{ form.submit(class="invisible btn btn-outline-success") }}
+        </span>
+    </form>
+</div>
+{% endblock %}
+{% block content %}
+<br>
+<h2>Your search results for <strong>{{ query }}</strong></h2>
 
 <div class="container-fluid">
     {% if input_type|string() == "Track" %}
-    {% for result in results | batch(4) %}
+    {% for result in results | batch(5) %}
     <div class="row media mt-3">
         {% for res in result %}
         <div class="col-sm">
             <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
             <div class="media-body">
                 <h6 class="mt-3 text-center">
-                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a> ({{ res.artist }})
+                    <strong><a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a></strong> <br>{{ res.artist }}
                 </h6>
             </div>
         </div>
@@ -32,7 +63,7 @@
             <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
             <div class="media-body">
                 <h5 class="mt-3 text-center">
-                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a>
+                    <strong><a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a></strong>
                 </h5>
             </div>
         </div>
@@ -48,7 +79,7 @@
             <img src="{{ res.image }}" class="rounded-circle mx-auto d-block mt-5" alt="missing">
             <div class="media-body">
                 <h5 class="mt-3 text-center">
-                    <a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a> ({{ res.artist }})
+                    <strong><a href="{{ url_for('music.music_detail', music_id=res.id, input_type=input_type) }}">{{ res.name }}</a></strong> <br>{{ res.artist }}
                 </h5>
             </div>
         </div>

@@ -12,7 +12,7 @@ class Track(object):
         self.id = track_json['id']
         self.name = track_json['name']
         self.artist = track_json['album']['artists'][0]['name']
-        self.image = track_json['album']['images'][2]['url']
+        self.image = track_json['album']['images'][0]['url']
         self.album_name = track_json['album']['name']
         self.type = "Track"
 

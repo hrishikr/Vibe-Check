@@ -8,19 +8,19 @@
 {% if info %}
 
 {# Display card for the movie details #}
-
+<br>
 {% if info.type|string() == "Track" %}
 <div class="row">
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ info.name }}
+        <h2>{{ info.name }}</h2>
       </div>
       <div class="card-body">
         <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
         <ul class="list-group list-group-flush">
+          <li class="list-group-item"><h4><b>Artist:</b> {{ info.artist }}</h4></li>
           <li class="list-group-item"><b>Album:</b> {{ info.album_name }}</li>
-          <li class="list-group-item"><b>Artist:</b> {{ info.artist }}</li>
         </ul>
       </div>
     </div>
@@ -33,7 +33,7 @@
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ info.name }}
+        <h2>{{ info.name }}</h2>
       </div>
       <div class="card-body">
         <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
@@ -52,12 +52,12 @@
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ info.name }}
+        <h2>{{ info.name }}</h2>
       </div>
       <div class="card-body">
         <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><b>Artist:</b> {{ info.artist }}</li>
+          <li class="list-group-item"><h4><b>Artist:</b> {{ info.artist }}</h4></li>
           <li class="list-group-item"><b>Number of Tracks:</b> {{ info.num_tracks }}</li>
         </ul>
       </div>
@@ -65,11 +65,11 @@
   </div>
 </div>
 {% endif %}
-
+<br>
 {# Reviews #}
 <div class="row">
   <div class="col-md-12">
-    <h1> Reviews <small class="float-right">{{ reviews|length }} reviews</small></h1>
+    <h2> Reviews <small class="float-right">{{ reviews|length }} reviews</small></h2>
     <ul class="media-list">
       {% for review in reviews %}
       <li class="media review-item">
