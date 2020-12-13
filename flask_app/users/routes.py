@@ -99,7 +99,7 @@ def qr_code():
 @users.route("/tfa")
 def tfa():
     if 'new_username' not in session:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('music.index'))
 
     headers = {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
