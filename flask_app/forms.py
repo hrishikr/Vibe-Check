@@ -71,4 +71,4 @@ class MusicReviewForm(FlaskForm):
     text = TextAreaField(
         "Comment", validators=[InputRequired(), Length(min=5, max=500)]
     )
-    submit = SubmitField("Enter Comment")
+    submit = SubmitField("Add Review")
