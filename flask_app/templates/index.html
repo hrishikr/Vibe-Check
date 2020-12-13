@@ -43,13 +43,13 @@
         <h6>The review platform centered around <strong>Music</strong>.</h6>
     </center>
 </div>
-<div class="container">
+<div class="container-fluid maxWidth">
     <center>
         <table>
             <tr> 
-                <th>Position</th>
-                <th>Song</th>
-                <th>Artist</th>
+                <th><center>Position</center></th>
+                <th><center>Song</center></th>
+                <th><center>Artist</center></th>
             </tr>
             <br>
             <h4>Here are this week's <strong>Hottest Songs</strong>!</h4>
@@ -58,11 +58,13 @@
             <tr>
                 <td><center>{{ key }}</center></td>
                 {% for i in values %}
-                {% if loop.index < 3 %}
+                {% if loop.index == 1 %}
+                <td><a href="{{ url_for('music.music_detail', music_id=songs[key - 1].id, input_type=songs[key - 1].type) }}"><center>{{ i }}</center></a></td>
+                {% elif loop.index < 3 %}
                 <td><center>{{ i }}</center></td>
                 {% else %} 
-                <td><img src={{ i }} /></td>
-                {% endif %}</li>
+                <td><img src="{{ i }}" /></td>
+                {% endif %}
 
                     
                 {% endfor %}

@@ -13,11 +13,15 @@ music = Blueprint("music", __name__)
 def index():
     form = SearchForm()
     data = scrape_billboard_hot_20()
+    songs = []
+
+    for i in data:
+        songs.append(client.get_search_results(query=data[i][0], search_type="Track")[0])
 
     if form.validate_on_submit():
         return redirect(url_for('music.query_results', query=form.search_query.data, input_type=form.input_type.data))
 
-    return render_template('index.html', form=form, data=data)
+    return render_template('index.html', form=form, data=data, songs=songs)
 
 @music.route('/search-results/<query>?<input_type>', methods=['GET'])
 def query_results(query, input_type):
