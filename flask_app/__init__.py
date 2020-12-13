@@ -9,6 +9,7 @@ from flask_login import (
     login_required,
 )
 from flask_bcrypt import Bcrypt
+from flask_talisman import Talisman
 from werkzeug.utils import secure_filename
 
 # stdlib
@@ -34,6 +35,10 @@ def page_not_found(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
+    csp = {
+        'default-src': '\'self\''
+    }
+    Talisman(app, content_security_policy=csp)
 
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:

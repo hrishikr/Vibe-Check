@@ -179,7 +179,7 @@ class SpotifyClient():
     
     def perform_auth(self):
         """
-        This method is used to authorize or authenticate a client. Anytime a call is made to the API, a POST request is made sharing the token data and token headers. The access token and the expiration time for a particular access token are updated in this method and referenced in other methods. (FYI I have a vague understanding of this method so I may be wrong) - Barjun.
+        This method is used to authorize or authenticate a client. Anytime a call is made to the API, a POST request is made sharing the token data and token headers. The access token and the expiration time for a particular access token are updated in this method and referenced in other methods.
 
         Args: None
         Return: None

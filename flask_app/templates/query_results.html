@@ -5,6 +5,8 @@
     <p>{{ error_msg }}</p>
 {% endif %}
 
+<h1>Your search results for <strong>{{ query }}</strong></h1>
+
 <div class="container-fluid">
     {% if input_type|string() == "Track" %}
     {% for result in results | batch(4) %}

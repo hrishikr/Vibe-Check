@@ -27,7 +27,7 @@ def index():
 def query_results(query, input_type):
     try:
         results = client.get_search_results(query=query, search_type=input_type)
-        return render_template('query_results.html', results=results, input_type=input_type)
+        return render_template('query_results.html', results=results, input_type=input_type, query=query)
     except ValueError as err:
         return render_template('query_results.html', error_msg=err)
 
