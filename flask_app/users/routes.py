@@ -68,15 +68,11 @@ def account():
         current_user.modify(username=username_form.username.data)
         current_user.save()
         return redirect(url_for("users.account"))
-    
-    user = User.objects(username=username_form.username.data).first()
-    reviews = Review.objects(commenter=user)
 
     return render_template(
         "account.html",
         title="Account",
-        username_form=username_form,
-        reviews=reviews
+        username_form=username_form
     )
 
 @users.route("/qr_code")

@@ -6,21 +6,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.links h4 {
-    border: thin black !important;
-    border-radius: 2px !important;
-}
-
 .card-body > img {
     max-width: 200;
 }
 
-.media-list {
-    border-top: 1px dashed rgb(150, 150, 150);
-}
-
 .review-item {
-    border-bottom: 1px dashed #a5a5a5;
+    border-bottom: 1px solid #a5a5a5;
 }
 
 .flask-btn:hover {
@@ -37,4 +28,30 @@ form {
     margin-left: 15%;
     margin-right:15%;
     width: 70%;
+}
+
+#hor-minimalist-b {
+    font-size: 16px;
+    background: #fff;
+    width: 90%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+#hor-minimalist-b th {
+    font-size: 24px;
+    font-weight: normal;
+    color: rgb(2, 4, 112);
+    padding: 10px 8px;
+    border-bottom: 2px solid #6678b1;
+}
+
+#hor-minimalist-b td {
+    border-bottom: 1px solid #ccc;
+    color: rgb(110, 110, 110);
+    padding: 6px 8px;
+}
+
+#hor-minimalist-b tbody tr:hover a{
+    color: #009;
 }

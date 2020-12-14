@@ -72,3 +72,6 @@ class MusicReviewForm(FlaskForm):
         "Comment", validators=[InputRequired(), Length(min=5, max=500)]
     )
     submit = SubmitField("Add Review")
+
+class LikedSongsForm(FlaskForm):
+    submit = SubmitField("Add to Liked Songs")

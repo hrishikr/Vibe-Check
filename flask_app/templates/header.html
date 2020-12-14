@@ -19,6 +19,16 @@
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('music.user_reviews', username=current_user.username) }}">
+                    Reviews
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('music.liked_songs', username=current_user.username) }}">
+                    Liked
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('users.account') }}">
                     Account
                 </a>

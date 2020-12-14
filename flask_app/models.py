@@ -30,3 +30,9 @@ class Review(db.Document):
     music_id = db.StringField(required=True)
     input_type = db.StringField(required=True)
     song_title = db.StringField(required=True, min_length=1, max_length=100)
+
+class Song(db.Document):
+    user = db.ReferenceField(User, required=True)
+    song = db.StringField(required=True, unique=True)
+    artist = db.StringField(required=True)
+    album = db.StringField(required=True)

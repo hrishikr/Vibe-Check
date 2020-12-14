@@ -1,0 +1,54 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2 class="text-center"><strong>{{ username }}'s</strong> Liked Songs</h2>
+    </div>
+</div>
+
+<div class="container-fluid maxWidth">
+    <center>
+        <table id="hor-minimalist-b">
+            <thead>
+                <tr>
+                    <th>
+                        <center>S.no</center>
+                    </th>
+                    <th>
+                        <center>Song</center>
+                    </th>
+                    <th>
+                        <center>Artist</center>
+                    </th>
+                    <th>
+                        <center>Album</center>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <br>
+            <h4>Here are your <strong>Liked Songs</strong>!</h4>
+            <br>
+            <tbody>
+                {% for song in liked_songs %}
+                <tr>
+                    <td>
+                        <center>{{ loop.index }}</center>
+                    </td>
+                    <td>
+                        <center>{{ song.song }}</center>
+                    </td>
+                    <td>
+                        <center>{{ song.artist }}</center>
+                    </td>
+                    <td>
+                        <center>{{ song.album }}</center>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </center>
+</div>
+{% endblock %}

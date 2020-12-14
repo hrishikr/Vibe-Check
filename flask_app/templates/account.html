@@ -32,11 +32,11 @@
 
 <div class="row mt-5">
     <div class="col">
-        <a href="{{ url_for('music.user_detail', username=current_user.username) }}">
-            <h4 class="links float-left">Click here to see all your reviews!</h4>
+        <a href="{{ url_for('music.user_reviews', username=current_user.username) }}">
+            <div class="rounded float-left"><h4>Click here to see all your reviews!<h4></div>
         </a>
-        <a href="{{ url_for('music.user_detail', username=current_user.username) }}">
-            <h4 class="links float-right">Click here to see your liked songs!</h4>
+        <a href="{{ url_for('music.liked_songs', username=current_user.username) }}">
+            <div class="links rounded float-right"><h4>Click here to see your songs!<h4></div>
         </a>
     </div>
 </div>
