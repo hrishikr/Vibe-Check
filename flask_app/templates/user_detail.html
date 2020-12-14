@@ -8,27 +8,31 @@
         <h2>{{ username }}'s Reviews</h2>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <h1> Reviews <small class="float-right">{{ reviews.count() }} reviews</small></h1>
-        <ul class="media-list">
-            {% for review in reviews %}
-            <li class="media review-item">
-                <div class="media-body">
-                    <span class="float-right">
-                        <small>{{ review.date }}</small>
-                    </span>
-                    <strong>For: <a href="{{ url_for('music.music_detail', music_id=review.music_id, input_type=review.input_type) }}">
-                            {{ review.song_title }}
-                        </a>, {{ review.input_type }}
-                    </strong>
-                    <p>
-                        {{ review.content }}
-                    </p>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1> Reviews <small class="float-right">{{ reviews.count() }} reviews</small></h1>
+            <ul class="media-list">
+                {% for review in reviews %}
+                <li class="media review-item">
+                    <div class="media-body">
+                        <span class="float-right">
+                            <small>{{ review.date }}</small>
+                        </span>
+                        <strong>For: <a href="{{ url_for('music.music_detail', music_id=review.music_id, input_type=review.input_type) }}">
+                                {{ review.song_title }}
+                            </a>, {{ review.input_type }}
+                        </strong>
+                        <p>
+                            {{ review.content }}
+                        </p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
+
 {% endblock %}

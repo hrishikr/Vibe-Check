@@ -53,7 +53,7 @@
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        <h2>{{ info.name }}</h2>
+        <h2><strong>{{ info.name }}</strong></h2>
       </div>
       <div class="card-body">
         <img src="{{ info.image }}" class="mr-3 movie" alt="alt text">
@@ -110,7 +110,7 @@
         {% endif %}
 
       </div>
-      {{ form.submit(class="form-control form-control-lg") }}
+      <center>{{ form.submit(class="flask-btn form-control form-control-lg") }}</center>
     </form>
   </div>
 </div>

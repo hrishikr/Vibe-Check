@@ -2,6 +2,15 @@ img {
     max-width: 20vh;
 }
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.links h4 {
+    border: thin black !important;
+    border-radius: 2px !important;
+}
+
 .card-body > img {
     max-width: 200;
 }
@@ -12,6 +21,16 @@ img {
 
 .review-item {
     border-bottom: 1px dashed #a5a5a5;
+}
+
+.flask-btn:hover {
+    background: black;
+    color: white;
+    transition: 0.25s ease-in;
+}
+
+.media-list {
+    border-top: solid;
 }
 
 form {
