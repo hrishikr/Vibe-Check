@@ -31,7 +31,7 @@
               </div>
             </form>
           </li>
-          {% elif current_user.is_authenticated %}
+          {% elif current_user.is_authenticated and song != None %}
           <li class="list-group-item">
             <h5><b>Added to <a href="{{ url_for('music.liked_songs', username=current_user.username) }}">liked songs</a></h5>
           </li>

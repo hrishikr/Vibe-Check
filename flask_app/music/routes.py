@@ -76,7 +76,7 @@ def music_detail(music_id, input_type):
         return redirect(request.path)
 
     reviews = Review.objects(music_id=music_id)
-    liked_song = Song.objects(song=result.name).first()
+    liked_song = Song.objects(user=current_user._get_current_object(), song=result.name).first()
 
     return render_template(
         "music_detail.html", review_form=review_form, liked_songs_form=liked_songs_form, info=result, reviews=reviews, song=liked_song, input_type=input_type, music_id=music_id

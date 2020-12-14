@@ -30,6 +30,6 @@ class Review(db.Document):
 
 class Song(db.Document):
     user = db.ReferenceField(User, required=True)
-    song = db.StringField(required=True, unique=True)
+    song = db.StringField(required=True)
     artist = db.StringField(required=True)
     album = db.StringField(required=True)
