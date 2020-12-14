@@ -1,5 +1,3 @@
 cache = {
-    "tracks": {},
-    "artists": {},
-    "albums": {}
+    "tracks": {}
 }

@@ -13,9 +13,6 @@
             <thead>
                 <tr>
                     <th>
-                        <center>S.no</center>
-                    </th>
-                    <th>
                         <center>Song</center>
                     </th>
                     <th>
@@ -28,12 +25,11 @@
                 </tr>
             </thead>
             <br>
+            <h4>You have <strong>{{ liked_songs.count() }}</strong> like songs</h4>
+            <br>
             <tbody>
                 {% for song in liked_songs %}
                 <tr>
-                    <td>
-                        <center>{{ loop.index }}</center>
-                    </td>
                     <td>
                         <center>{{ song.song }}</center>
                     </td>
@@ -42,6 +38,9 @@
                     </td>
                     <td>
                         <center>{{ song.album }}</center>
+                    </td>
+                    <td>
+                        <center><a href="{{ url_for('music.remove_liked', username=username, song=song.song) }}">Remove</a></center>
                     </td>
                 </tr>
                 {% endfor %}

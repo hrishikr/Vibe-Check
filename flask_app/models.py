@@ -6,12 +6,9 @@ from .utils import current_time
 import base64
 import pyotp
 
-
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.objects(username=user_id).first()
-
 
 class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)

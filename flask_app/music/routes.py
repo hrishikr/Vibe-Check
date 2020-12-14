@@ -3,6 +3,7 @@ from flask_login import current_user
 
 from .. import client
 from ..cache import cache
+from .. import db
 from ..forms import MusicReviewForm, SearchForm, LikedSongsForm
 from ..models import User, Review, Song
 from ..utils import current_time
@@ -94,4 +95,14 @@ def liked_songs(username):
     user = User.objects(username=username).first()
     songs = Song.objects(user=user)
 
+    return render_template("liked_songs.html", username=username, liked_songs=songs)
+
+@music.route("/user/liked/<username>&<song>", methods=["GET", "POST"])
+def remove_liked(username, song):
+    user = User.objects(username=username).first()
+    song = Song.objects(user=user, song=song).first()
+    song.delete()
+    
+    songs = Song.objects(user=user)
+    
     return render_template("liked_songs.html", username=username, liked_songs=songs)
