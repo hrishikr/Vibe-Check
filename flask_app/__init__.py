@@ -53,8 +53,9 @@ def create_app(test_config=None):
 
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
-        app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
         app.config.update(test_config)
+    
+    app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
 
     db.init_app(app)
     login_manager.init_app(app)
