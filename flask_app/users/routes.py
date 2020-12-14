@@ -69,6 +69,7 @@ def account():
         current_user.save()
         return redirect(url_for("users.account"))
 
+
     return render_template(
         "account.html",
         title="Account",

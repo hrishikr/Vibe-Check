@@ -2,7 +2,8 @@
 {% block content %}
 <div class="row">
     <div class="col">
-        <h1>Hi {{ current_user.username }}!</h1>
+        <br>
+        <center><h1>Hi <strong>{{ current_user.username }}</strong>!</h1></center>
     </div>
 </div>
 <div class="container">
@@ -33,10 +34,10 @@
 <div class="row mt-5">
     <div class="col">
         <a href="{{ url_for('music.user_reviews', username=current_user.username) }}">
-            <div class="rounded float-left"><h4>Click here to see all your reviews!<h4></div>
+            <div class="rounded float-left"><h4>Click here to see all your reviews<h4></div>
         </a>
         <a href="{{ url_for('music.liked_songs', username=current_user.username) }}">
-            <div class="links rounded float-right"><h4>Click here to see your songs!<h4></div>
+            <div class="links rounded float-right"><h4>Click here to see your songs<h4></div>
         </a>
     </div>
 </div>

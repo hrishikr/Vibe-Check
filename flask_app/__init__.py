@@ -35,10 +35,21 @@ def page_not_found(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    # csp = {
-    #     'default-src': '\'self\''
-    # }
-    # Talisman(app, content_security_policy=csp)
+    csp = {
+        'default-src': '\'self\'',
+        'script-src':[
+            '\'self\'',
+            'https://stackpath.bootstrapcdn.com/bootstrap/',
+            'https://code.jquery.com/',
+            'https://cdnjs.cloudflare.com/ajax/libs/popper.js/'
+        ],
+        'style-src':[
+            '\'self\'',
+            'https://stackpath.bootstrapcdn.com/bootstrap/'
+        ],
+        'img-src':'*'
+    }
+    Talisman(app, content_security_policy=csp)
 
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:

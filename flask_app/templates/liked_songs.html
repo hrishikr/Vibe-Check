@@ -2,6 +2,7 @@
 {% block content %}
 <div class="row">
     <div class="col">
+        <br>
         <h2 class="text-center"><strong>{{ username }}'s</strong> Liked Songs</h2>
     </div>
 </div>
@@ -26,8 +27,6 @@
                     <th></th>
                 </tr>
             </thead>
-            <br>
-            <h4>Here are your <strong>Liked Songs</strong>!</h4>
             <br>
             <tbody>
                 {% for song in liked_songs %}

@@ -40,7 +40,7 @@
 
 <div class="container-fluid">
     {% if input_type|string() == "Track" %}
-    {% for result in results | batch(5) %}
+    {% for result in results | batch(4) %}
     <div class="row media mt-3">
         {% for res in result %}
         <div class="col-sm">
