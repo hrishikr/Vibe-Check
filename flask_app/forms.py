@@ -69,7 +69,7 @@ class UpdateUsernameForm(FlaskForm):
 
 class MusicReviewForm(FlaskForm):
     text = TextAreaField(
-        "Comment", validators=[InputRequired(), Length(min=1, max=500)]
+        "Comment", validators=[InputRequired(), Length(min=5, max=500)]
     )
     submit = SubmitField("Add Review")
 
