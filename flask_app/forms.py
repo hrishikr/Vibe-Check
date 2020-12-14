@@ -74,4 +74,4 @@ class MusicReviewForm(FlaskForm):
     submit = SubmitField("Add Review")
 
 class LikedSongsForm(FlaskForm):
-    submit = SubmitField("Add to Liked Songs")
+    submit_liked = SubmitField("Add to Liked Songs")
