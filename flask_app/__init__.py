@@ -47,7 +47,8 @@ def create_app(test_config=None):
             '\'self\'',
             'https://stackpath.bootstrapcdn.com/bootstrap/'
         ],
-        'img-src':'*'
+        'img-src':'*',
+        'object-src': 'data:'
     }
     Talisman(app, content_security_policy=csp)
 
