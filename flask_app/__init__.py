@@ -33,7 +33,7 @@ from .users.routes import users
 def page_not_found(e):
     return render_template("404.html"), 404
 
-def app(test_config=None):
+def create_app(test_config=None):
     app = Flask(__name__)
     csp = {
         'default-src': '\'self\'',
