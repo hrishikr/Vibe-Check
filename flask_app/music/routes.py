@@ -76,6 +76,8 @@ def music_detail(music_id, input_type):
         return redirect(request.path)
 
     reviews = Review.objects(music_id=music_id)
+
+    liked_song = None
     
     if current_user.is_authenticated:
         liked_song = Song.objects(user=current_user._get_current_object(), song=result.name).first()
