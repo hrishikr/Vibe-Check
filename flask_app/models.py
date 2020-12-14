@@ -22,7 +22,7 @@ class User(db.Document, UserMixin):
 
 class Review(db.Document):
     commenter = db.ReferenceField(User, required=True)
-    content = db.StringField(required=True, min_length=5, max_length=500)
+    content = db.StringField(required=True, min_length=1, max_length=500)
     date = db.StringField(required=True)
     music_id = db.StringField(required=True)
     input_type = db.StringField(required=True)
