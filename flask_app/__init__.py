@@ -51,10 +51,9 @@ def create_app(test_config=None):
     }
     Talisman(app, content_security_policy=csp)
 
-    app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
-
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
+        app.config["MONGODB_HOST"] = os.getenv("MONGODB_HOST")
         app.config.update(test_config)
 
     db.init_app(app)
