@@ -24,7 +24,7 @@
           {% if current_user.is_authenticated and info.name != song.song %}
           <li class="list-group-item">
             <form method="POST" action="">
-              {{ review_form.csrf_token }}
+              {{ liked_songs_form.csrf_token }}
               <div class="form-group">
                 {{ liked_songs_form.submit(class="flask-btn form-control form-control-lg") }}
               </div>
