@@ -3,7 +3,7 @@ from flask_login import current_user
 import pyotp
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms import StringField, IntegerField, SubmitField, TextAreaField, PasswordField
-from wtforms.validators import InputRequired, Length
+from wtforms.validators import InputRequired, Length, Regexp
 from wtforms.validators import (
     InputRequired,
     DataRequired,
@@ -25,7 +25,7 @@ class SearchForm(FlaskForm):
 class RegistrationForm(FlaskForm):    
     email = StringField("Email", validators = [InputRequired(), Email()])
     username = StringField("Username", validators = [InputRequired(), Length(min = 1, max = 60)])
-    password = PasswordField("Password", validators = [InputRequired()])
+    password = PasswordField("Password", validators = [InputRequired(), Length(min = 8, max = 32), Regexp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])", message="Username must contain only letters numbers or underscore")])
     confirm_password = PasswordField("Confirm Password", validators = [InputRequired(), EqualTo("password")])
     submit = SubmitField("Register")
 
