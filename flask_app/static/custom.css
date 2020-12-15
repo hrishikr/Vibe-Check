@@ -2,9 +2,9 @@ img {
     max-width: 20vh;
 }
 
-body {
+/* body {
     font-family: 'Roboto', sans-serif;
-}
+} */
 
 .card-body > img {
     max-width: 200;
