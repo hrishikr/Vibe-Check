@@ -29,6 +29,7 @@
             <h4>You have <strong>1</strong> liked song</h4>
             {% else %}
             <h4>You have <strong>{{ liked_songs.count() }}</strong> liked songs</h4>
+            {% endif %}
             <br>
             <tbody>
                 {% for song in liked_songs %}
