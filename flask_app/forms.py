@@ -25,7 +25,7 @@ class SearchForm(FlaskForm):
 class RegistrationForm(FlaskForm):    
     email = StringField("Email", validators = [InputRequired(), Email()])
     username = StringField("Username", validators = [InputRequired(), Length(min = 1, max = 60)])
-    password = PasswordField("Password", validators = [InputRequired(), Length(min = 8, max = 32), Regexp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])", message="Length must be between 8 and 332 characters. Be sure to include 1 (A-Z), 1 (a-z), 1 (0-9), 1 (!, @, #, $, %, ^, &)")])
+    password = PasswordField("Password", validators = [InputRequired(), Length(min = 8, max = 32), Regexp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])", message="Length must be between 8 and 32 characters. Be sure to include 1 (A-Z), 1 (a-z), 1 (0-9), 1 (!, @, #, $, %, ^, &)")])
     confirm_password = PasswordField("Confirm Password", validators = [InputRequired(), EqualTo("password")])
     submit = SubmitField("Register")
 
