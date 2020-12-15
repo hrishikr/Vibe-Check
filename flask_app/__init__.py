@@ -46,7 +46,8 @@ def create_app(test_config=None):
         'style-src':[
             '\'self\'',
             'https://stackpath.bootstrapcdn.com/bootstrap/',
-            'https://fonts.googleapis.com'
+            'https://fonts.googleapis.com',
+            'https://fonts.gstatic.com'
         ],
         'img-src':'*',
         'object-src': 'data:'
